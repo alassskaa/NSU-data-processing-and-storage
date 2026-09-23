@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.sidorenko'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.81'
+    implementation 'org.bouncycastle:bcpkix-jdk18on:1.81'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('runSigningKeyGenerator', JavaExec) {
+    group = 'application'
+    description = 'Generates signing key'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.sidorenko.java_1.SigningKeyGenerator'
+}
+
+tasks.register('runServer', JavaExec) {
+    group = 'application'
+    description = 'Runs the key generation server'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.sidorenko.java_1.Server'
+}
+
+tasks.register('runClient', JavaExec) {
+    group = 'application'
+    description = 'Runs the client'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.sidorenko.java_1.Client'
+}
