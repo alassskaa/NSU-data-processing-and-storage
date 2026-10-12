@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'ru.sidorenko'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.12.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+    mainClass = 'ru.sidorenko.java_2.Main'
+}
+
+tasks.named('run') {
+    standardInput = System.in
+}
+
+tasks.named('jar') {
+    manifest {
+        attributes 'Main-Class': 'ru.sidorenko.java_2.Main'
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('runExperiment', JavaExec) {
+    group = 'application'
+    description = 'Measures sorting steps for both list implementations'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.sidorenko.java_2.StepExperiment'
+}
