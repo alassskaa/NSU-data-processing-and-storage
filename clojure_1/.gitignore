@@ -1,0 +1,20 @@
+.cpcache/
+.nrepl-port
+target/
+.rebel_readline_history
+
+### Calva / clojure-lsp / clj-kondo ###
+.calva/
+.lsp/.cache/
+.clj-kondo/.cache/
+.portal/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### VS Code ###
+.vscode/
